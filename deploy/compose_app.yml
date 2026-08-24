@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  server:
+    image: ${IMATGE_APP}
+    container_name: ${NOM_CONTENIDOR}
+    restart: unless-stopped
+    build: 
+      context: ./../
+      dockerfile: ./deploy/Dockerfile
+    # No cal ja que l'aplicació no està mapejada a l'exterior
+    # ha de passar pel proxy sempre
+    #ports:
+    #  - "8585:8080"
+    
+
+networks:
+  default:
+    external: true
+    name: ames_frontend

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>Comercial</title>
+    <style>
+      body {
+        background-color: #F5F5FF;
+      }
+  
+      @duration: 2s;
+      @size: 2rem;
+
+      .loader {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        height: 2rem;
+        width: 2rem;
+        transform: translateX(-50%) translateY(-50%);
+      }
+      .container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 2rem;
+        width: 2rem;
+      }
+      .block {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 2rem;
+        width: 2rem;
+      }
+      .block > .item {
+        position: absolute;
+        height: 2rem;
+        width: 2rem;
+        background: #c7c7f0;
+        -webkit-animation: move 2s linear infinite;
+                animation: move 2s linear infinite;
+      }
+      .block > .item:nth-of-type(1) {
+        top: -2rem;
+        left: -2rem;
+        -webkit-animation-delay: -1.75s;
+                animation-delay: -1.75s;
+      }
+      .block > .item:nth-of-type(2) {
+        top: -2rem;
+        left: 0;
+        -webkit-animation-delay: -1.5s;
+                animation-delay: -1.5s;
+      }
+      .block > .item:nth-of-type(3) {
+        top: -2rem;
+        left: 2rem;
+        -webkit-animation-delay: -1.25s;
+                animation-delay: -1.25s;
+      }
+      .block > .item:nth-of-type(4) {
+        top: 0;
+        left: 2rem;
+        -webkit-animation-delay: -1s;
+                animation-delay: -1s;
+      }
+      .block > .item:nth-of-type(5) {
+        top: 2rem;
+        left: 2rem;
+        -webkit-animation-delay: -0.75s;
+                animation-delay: -0.75s;
+      }
+      .block > .item:nth-of-type(6) {
+        top: 2rem;
+        left: 0;
+        -webkit-animation-delay: -0.5s;
+                animation-delay: -0.5s;
+      }
+      .block > .item:nth-of-type(7) {
+        top: 2rem;
+        left: -2rem;
+        -webkit-animation-delay: -0.25s;
+                animation-delay: -0.25s;
+      }
+      .block > .item:nth-of-type(8) {
+        top: 0;
+        left: -2rem;
+        -webkit-animation-delay: 0s;
+                animation-delay: 0s;
+      }
+      @-webkit-keyframes move {
+        0% {
+          transform: rotate(0) scale(1);
+          -webkit-animation-timing-function: ease-in;
+                  animation-timing-function: ease-in;
+        }
+        10% {
+          transform: rotate(90deg) scale(0);
+        }
+        50% {
+          transform: rotate(90deg) scale(0);
+          -webkit-animation-timing-function: ease-out;
+                  animation-timing-function: ease-out;
+        }
+        60% {
+          transform: rotate(180deg) scale(1);
+        }
+        100% {
+          transform: rotate(180deg) scale(1);
+        }
+      }
+      @keyframes move {
+        0% {
+          transform: rotate(0) scale(1);
+          -webkit-animation-timing-function: ease-in;
+                  animation-timing-function: ease-in;
+        }
+        10% {
+          transform: rotate(90deg) scale(0);
+        }
+        50% {
+          transform: rotate(90deg) scale(0);
+          -webkit-animation-timing-function: ease-out;
+                  animation-timing-function: ease-out;
+        }
+        60% {
+          transform: rotate(180deg) scale(1);
+        }
+        100% {
+          transform: rotate(180deg) scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but Comercial doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app">
+      <div class='loader' id='loader'>
+        <div class='block'>
+            <div class='item'></div>
+            <div class='item'></div>
+            <div class='item'></div>
+            <div class='item'></div>
+            <div class='item'></div>
+            <div class='item'></div>
+            <div class='item'></div>
+            <div class='item'></div>
+        </div>
+      </div>
+      <div style="visibility: hidden;" id="permisos">
+        <strong>CA: No tens permisos per accedir a l'aplicació</strong>
+        <br>
+        <strong>ES: No tienes permisos para acceder a la aplicación</strong>
+        <br>
+        <strong>EN: You do not have permissions to access the application</strong>
+        <br>
+        <strong>HU: Nincs jogosultságod az alkalmazás eléréséhez</strong>
+        <br>
+        <strong>ZH: 您无权访问该应用程序</strong>
+      </div>
+    </div>
+
+    <script>
+      // Comprovació que el navegodor sigui Firefox
+      function isFirefox() {
+        return /Firefox/i.test(navigator.userAgent);
+      }
+
+      if (!isFirefox()) {
+        document.body.innerHTML += "<br>";
+        document.body.innerHTML += "<div style='margin-left: 5px'><strong>Aquesta aplicació només és compatible amb Firefox. Si us plau, utilitza Firefox per continuar.</strong></div>";
+        document.body.innerHTML += "<div style='margin-left: 5px'><strong>Esta aplicación solo es compatible con Firefox. Por favor, utiliza Firefox para continuar.</strong></div>";
+        document.body.innerHTML += "<div style='margin-left: 5px'><strong>This application is only compatible with Firefox. Please use Firefox to continue.</strong></div>";
+        document.getElementById('app').style.display = 'none';
+      }
+    </script>
+
+  </body>
+</html>
+

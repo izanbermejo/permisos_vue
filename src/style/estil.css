@@ -1,0 +1,126 @@
+.bold6 {
+  font-weight: 600;
+}
+
+.p-inputtext {
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  border-radius: .25rem;
+}
+
+.p-inputtext.p-inputtext-sm {
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  border-radius: .25rem;
+}
+
+.p-inputnumber-input {
+  text-align: right;
+  color: #212529;
+}
+
+.p-datepicker table {
+  margin: 0rem;
+}
+
+.p-datepicker table td {
+  padding: 0px;
+}
+
+.p-datepicker table td>span {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.p-datepicker .p-datepicker-header {
+  padding: 0px;
+}
+
+.p-datepicker table th {
+  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year {
+  padding: 0rem;
+}
+
+.p-button.p-button-icon-only {
+  padding: 0px;
+}
+
+.p-datatable.p-datatable-sm .p-datatable-tbody>tr>td {
+  padding: 0.3rem 0.3rem;
+}
+
+.p-datatable.p-datatable-sm .p-datatable-thead>tr>th {
+  padding: 0.1rem 0.1rem;
+}
+
+.p-datatable.p-datatable-sm-petita .p-datatable-tbody>tr>td {
+  padding: 0rem 0.2rem;
+}
+
+.p-datatable.p-datatable-sm-petita .p-datatable-thead>tr>th {
+  padding: 0rem 0.2rem;
+}
+
+.p-dialog .p-dialog-header {
+  padding: 1rem 1rem 0rem 1.5rem;
+}
+
+.boto-card {
+  padding: 0.2rem 0.7rem !important;
+}
+
+/* Multiselect (element) */
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+  padding: 0.2rem 0.5rem;
+}
+
+/* Multiselect (header) */
+.p-multiselect-panel .p-multiselect-header {
+  padding: 0.2rem 0.5rem;
+}
+
+.p-multiselect-items-wrapper {
+  max-height: 300px;
+}
+
+/* Rounded border */
+hr.rounded {
+  margin: 2px 0px;
+  border-top: 2px solid #bbb;
+  border-radius: 5px;
+}
+
+.p-contextmenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+  color: #2196f3
+}
+
+.p-contextmenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-icon {
+  color:#2196f3
+}
+
+.p-menuitem {
+  &.p-focus {
+      > .p-menuitem-content {
+          background-color: #e8f5ff !important;
+      }
+  }
+}
+
+.p-menuitem {
+  &.p-focus {
+      > .p-menuitem-content .p-menuitem-link .p-menuitem-icon {
+          color: #2196f3 !important;
+      }
+  }
+}
+
+.p-menuitem {
+  &.p-focus {
+      > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+          color: #2196f3 !important;
+      }
+  }
+}

@@ -1,0 +1,194 @@
+/* Aquest arxiu deriva dels themes que hi ha al directori de node_modules/vue-sidebar-menu/src/scss/themes */
+/* COMPTE cal afegir a vue-sidebar-menu.scss el següent import @import './themes/isocat-theme'; */
+
+$opcio-seleccionada: #F5F5FF; //#42f4eb;
+
+$base-bg: #2a2a2e; //Color de la barra de menus
+$item-color: #fff; //Color de la lletra de les opcions del menu
+$icon-bg: $base-bg; //Color de fons de la icona
+$item-hover-bg: #5a5a5a; //Color del marc de seleccio de la opcio escollida
+$item-active-color: $opcio-seleccionada; //Color del text de la opcio escollida
+$item-active-line-color: $opcio-seleccionada;//Color de la marca esquerra de que la opcio esta escollida
+$icon-active-color: $opcio-seleccionada; //Color de la icona de la opcio escollida
+//$icon-active-bg: $item-hover-bg; //Color de fons de la icona  de la opcio escollida
+$icon-active-bg: $base-bg; //Color de fons de la icona  de la opcio escollida
+$dropdown-color: $item-color; //Color de les subopcions desplegades, tant icona com text
+$dropdown-bg: $base-bg; //Color de fons de les subopcions desplegades al escollir un submenu
+$icon-hover-bg: $item-hover-bg;
+$item-open-color: $opcio-seleccionada; //Color de la lletra de una opcio amb subopcions quan s'escull 
+$mobile-item-color: $opcio-seleccionada; //Color del text de la opcio escollida quan el menu esta amagat
+$mobile-icon-color: $opcio-seleccionada; //Color de la icona de la opcio escollida quan el menu esta amagat
+
+/* CUSTOM-VAR
+$primary-color: #4285f4 !default; //No veig a on afecta
+$base-bg: #2a2a2e !default; //Color de la barra de menus
+
+$item-color: #fff !default; //Color de la lletra de les opcions del menu
+
+$item-active-color: null !default; //Color del text de la opcio escollida
+$item-active-bg: null !default; //Color de fons de la opcio escollida
+$item-active-line-color: $primary-color !default; //Color de la marca esquerra de que la opcio esta escollida
+
+$item-open-color: #fff !default; //Color de la lletra de una opcio amb subopcions quan s'escull
+$item-open-bg: $primary-color !default; //Color del fondo de una opcio amb subopcions quan s'escull
+
+$item-hover-color: null !default; //Color del text i icona de la opcio al escollir-se
+$item-hover-bg: rgba(darken($base-bg, 5%), 0.5) !default; //Color del marc de seleccio de la opcio escollida
+
+$icon-color: null !default; //Color de les icones
+$icon-bg: darken($base-bg, 5%) !default; //Color de fons de la icona
+$icon-hover-bg: null !default; //Color de fons de la icona de la opcio al escollir-se
+
+$icon-active-color: null !default; //Color de la icona de la opcio escollida
+$icon-active-bg: null !default; //Color de fons de la icona de la opcio escollida
+
+$icon-open-color: null !default; //Color de la icona de la opcio escollida
+$icon-open-bg: $item-open-bg !default; //Color de fons de la icona de la opcio escollida
+
+$mobile-item-color: #fff !default; //Color del text de la opcio escollida quan el menu esta amagat
+$mobile-item-bg: $primary-color !default; //Color de fons de la opcio escollida quan el menu esta amagat
+$mobile-icon-color: $mobile-item-color !default; //Color de la icona de la opcio escollida quan el menu esta amagat
+$mobile-icon-bg: $mobile-item-bg !default; //Color de fons de la icona de la opcio escollida quan el menu esta amagat
+
+$dropdown-color: null !default; //Color de les subopcions desplegades, tant icona com text
+$dropdown-bg: lighten($base-bg, 5%) !default; //Color de fons de les subopcions desplegades al escollir un submenu
+
+$header-item-color: rgba($item-color, 0.7) !default; //No veig a on afecta
+
+$toggle-btn-color: #fff !default; //No veig a on afecta
+$toggle-btn-bg: darken($base-bg, 5%) !default; //No veig a on afecta
+
+$item-font-size: 16px !default;
+$item-line-height: 30px !default;
+$item-padding: 10px 15px !default;
+$icon-height: 35px !default;
+$icon-width: 35px !default;
+*/
+
+//COMPTE cal afegir .vsm_nomtheme-theme al .v-sidebar-menu per a diferenciar-lo del .v-sidebar-menu del them default
+.v-sidebar-menu.vsm_comercial-theme {
+  background-color: $base-bg;
+  .vsm--link {
+    //afegit per mi
+    //aixo desactiva el efecte de transicio que te el menu i que fa que les icones es mostrin fent un flash entre el color de fons i el color del marc blau de seleccio
+    transition: none; 
+    color: $item-color;
+    &_active {
+      color: $item-active-color;
+      background-color: $item-active-bg;
+    }
+    &_level-1 {
+      &.vsm--link_active {
+        box-shadow: 5px 0px 0px 0px $item-active-line-color inset;
+        & .vsm--icon {
+          color: $icon-active-color;
+          //Aquest era el culpable de que les icones sortissin amb fons diferent a quan es seleccionen si es que estava la opcio seleccionada
+          //background-color: $icon-active-bg;
+        }
+      }
+      & .vsm--icon {
+        background-color: $icon-bg;
+      }
+    }
+    //afegit per mi. Funciona, li fica el marcat de la subopcio amb un marc a l'esquera
+    &_level-2 {
+      &.vsm--link_active {
+        box-shadow: 5px 0px 0px 0px $item-active-line-color inset;
+        & .vsm--icon {
+          color: $icon-active-color;
+        }
+      }
+    }
+    &_hover {
+      color: $item-hover-color;
+      background-color: $item-hover-bg;
+      //Afegit per mi. Per a pintar la icona amb el mateix color que la barra de seleccio
+      //Funciona pero fa un efecte intermitent de gris al color de seleccio i no m'agrada
+      //sembla que hia una transition a algun lloc
+      //Arreglat, calia afegir el transition: none al .vsm--link
+      & .vsm--icon {
+        color: $icon-active-color;
+        background-color: $icon-hover-bg;
+      }
+    }
+    &_mobile {      
+      &_active { //afegit per mi
+        color: $mobile-item-color;
+      }
+    }
+  }
+
+  //Quan la barra de menus esquerra es fa gran
+  &.vsm_expanded {
+      .vsm--link_level-1 {
+      &.vsm--link_open {
+        color: $item-open-color;
+        background-color: $item-open-bg;
+        & .vsm--icon {
+          color: $icon-open-color;
+          background-color: $icon-open-bg;
+        }
+      }
+    }
+  }
+
+  //Quan la barra de menus esquerra es fa petita
+  &.vsm_collapsed {
+    .vsm--link_level-1 {
+      &.vsm--link_hover {
+        .vsm--icon {
+          &_active { //afegit per mi
+            color: $mobile-icon-color;
+          }
+          background-color: $mobile-icon-bg;
+        }
+      }
+    }
+  }
+
+  .vsm--icon {
+    color: $icon-color;
+  }
+
+  //Quan es desplega una opcio que te subopcions
+  .vsm--dropdown {
+    background-color: $dropdown-bg;
+    padding-left: 20px; //afegit per mi. Funciona, fa que les subopcions surtin mes a la dreta
+    & .vsm--link {
+      color: $dropdown-color;
+      //afegit per mi, li canvia el color al text de la subopcio escollida
+      &_active {
+        color: $item-active-color;
+        background-color: $item-active-bg;
+      }
+    }
+    & .vsm--icon {
+      color: $dropdown-color;
+    }    
+  }
+
+  .vsm--mobile-bg {
+    background-color: $mobile-item-bg;
+    //afegit per mi, quan el menu esta amagat
+    //aixo desactiva el efecte de transicio que te el menu i que fa que les icones es mostrin fent un flash entre el color de fons i el color del marc blau de seleccio
+    transition: none; 
+  }
+
+  &.vsm_rtl {
+    .vsm--link_level-1.vsm--link_active {
+      box-shadow: -5px 0px 0px 0px $item-active-line-color inset;
+    }
+  }
+
+  .vsm--header {
+    color: $header-item-color;
+  }
+  .vsm--badge_default {
+    color: $item-color;
+    background-color: darken($base-bg, 5%);
+  }
+  .vsm--toggle-btn {
+    color: $toggle-btn-color;
+    background-color: $toggle-btn-bg;
+  }
+}

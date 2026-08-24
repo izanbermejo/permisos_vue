@@ -1,0 +1,2 @@
+# Nom de l'aplicació i del contenidor docker
+app=comercial_ui
