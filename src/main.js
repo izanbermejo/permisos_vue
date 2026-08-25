@@ -77,7 +77,6 @@ import keycloak, { usuari } from '@/keycloak/keycloak';
 
 // Moment
 import moment from "moment";
-import ComandesService from "./services/comandes.service";
 import PermisosService from "./services/permisos.service";
 
 /*  Override la funció stringify per convertir les dates al format YYYY-MM-DD
@@ -171,9 +170,9 @@ keycloak.init({onLoad: 'login-required', checkLoginIframe: false})
         document.getElementById('permisos').style.visibility = 'visible';
       } else {
         // Càrrega de metadades
-        const data = await ComandesService.metadata();
-        localStorage.setItem('metadata', JSON.stringify(data));
-        localStorage.setItem('comandes', null);
+        // const data = await ComandesService.metadata();
+        // localStorage.setItem('metadata', JSON.stringify(data));
+        // localStorage.setItem('comandes', null);
 
         // Inici de l'aplicació Vue
         app.use(PluginComercial)

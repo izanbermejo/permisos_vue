@@ -77,5 +77,10 @@ descarregaTarifa(codi) {
 
 // }
 
+  obtenirPermisosFuncio(){
+    console.log("obtenirPermisosFuncio");
+    return apiComercial.get(`tarifes/permisosFuncio`);
+  }
+
 }
 export default new TarifesService();

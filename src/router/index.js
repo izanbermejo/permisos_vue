@@ -15,82 +15,10 @@ const routes = [
     component: lazyView('ErrorPermisosView'),
   },
   {
-    name: 'comandes',
-    path: '/comandes',
-    component: lazyView('ComandesView'),
-    meta: {modul: 'COMANDES'}
-  },
-  {
-    name: 'propostes',
-    path: '/propostes',
-    component: lazyView('PropostesView'),
-    meta: {modul: 'PROPOSTES'}
-  },
-  {
-    name: 'albarans',
-    path: '/albarans',
-    component: lazyView('AlbaransView'),
-    meta: {modul: 'ALBARANS'}
-  },
-  {
     name: 'tarifes',
     path: '/tarifes',
     component: lazyView('TarifesView'),
     meta: {modul: 'TARIFES'}
-  },
-  {
-    path: '/comandesEDI',
-    component: lazyView('ComandesEDIEmptyView'),
-    children: [{
-      name: 'comandesEDI',
-      path: '',
-      component: lazyView('ComandesEDIView'),
-      meta: {
-        modul: 'COMANDES_EDI',
-        scrollPos: {
-            top: 0,
-            left: 0,
-        },
-      },
-    }, {
-      name: 'liniesEDI',
-      path: '/comandesEDI/linies/:id',
-      component: lazyView('LiniesEDIView')
-    },
-    {
-      name: 'liniesEDIfirst',
-      path: '/comandesEDI/linies/comandes/EDI/linies/:codiComanda?first_article',
-      component: lazyView('LiniesEDIView')
-    }]
-  },
-  {
-    name: 'ordresFabricacio',
-    path: '/ordresFabricacio',
-    component: lazyView('OrdresFabricacioView'),
-    meta: {modul: 'OFS'}
-  },
-  {
-    name: 'entrades',
-    path: '/entrades',
-    component: lazyView('EntradesView'),
-    meta: {modul: 'ENTRADES'}
-  },
-  {
-    name: 'EDI2',
-    path: '/comandesEDI2',
-    component: lazyView('EDI2View'),
-    meta: {modul: 'COMANDES_EDI'}
-  },
-  {
-    name: 'movimentsMagatzem',
-    path: '/movimentsMagatzem',
-    component: lazyView('MovimentsMagatzemView'),
-  },
-  {
-    // TODO Permisos: afegir meta: {modul: 'CONSUMS'} quan es configuri el mòdul
-    name: 'consums',
-    path: '/consums',
-    component: lazyView('ConsumsView'),
   },
 ]
 

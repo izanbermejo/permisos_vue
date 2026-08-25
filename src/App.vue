@@ -69,8 +69,6 @@ import i18n from '@/i18n/i18n'
 import { usePrimeVue } from "primevue/config";
 import keycloak, {nomUsuari} from './keycloak/keycloak'
 import { useConfirm } from "primevue/useconfirm";
-import { usePermisosStore } from './stores/permisos';
-import { useEdiStore } from '@/stores/ediCount';
 
 export default {
   name : 'App',
@@ -81,9 +79,6 @@ export default {
     const { t, locale } = i18n.global;
     const appVersion = process.env.VUE_APP_VERSION;
     const isEntornProduccio = process.env.NODE_ENV === 'production';
-    const permisosStore = usePermisosStore();
-    const ediStore = useEdiStore()
-    const usuariAntic = ref(permisosStore.teUsuariAntic());
     const separator = {
       template: '<hr class="bg-light border-2 border-top border-light" style="margin: 10px">'
     }
@@ -103,10 +98,6 @@ export default {
       }
     }
 
-    watch(() => ediStore.count, () => {
-        menu.value = buildMenu()
-      }
-    )
 
     onMounted(() => {
       onResize();
@@ -118,7 +109,6 @@ export default {
       const primevue = usePrimeVue();
       translatePrime(primevue);
       // Títol
-      ediStore.refreshCount(permisosStore, usuariAntic.value);
     });
 
     const onResize = () => {
@@ -152,67 +142,11 @@ export default {
             component: markRaw(separator)
           },
           {
-            href: '/comandes',
-            title: t('App.Comandes'),
-            icon: faIcon({ icon: '"fa-solid fa-receipt' }),
-            hidden: !permisosStore.teModul('COMANDES')
-          },
-          {
-            href: '/propostes',
-            title: t('App.Propostes'),
-            icon: faIcon({ icon: '"fa-solid fa-truck-plane' }),
-            hidden: !permisosStore.teModul('PROPOSTES')
-          },
-          {
-            href: '/albarans',
-            title: t('App.Albarans'),
-            icon: faIcon({ icon: '"fa-solid fa-right-from-bracket' }),
-            hidden: !permisosStore.teModul('ALBARANS')
-          },
-          {
-            href: '/tarifes',
-            title: t('App.Tarifes'),
+            href: '/permisos',
+            title: t('App.Titol'),
             icon: faIcon({ icon: '"fa-solid fa-tags' }),
-            hidden: !permisosStore.teModul('TARIFES')
+            // hidden: !permisosStore.teModul('TARIFES')
           },
-          {
-            href: '/comandesEDI',
-            title: t('App.EDI'),
-            icon: faIcon({ icon: '"fa-solid fa-indent' }),
-            hidden: !permisosStore.teModul('COMANDES_EDI')
-          },
-          {
-            href: '/ordresFabricacio',
-            title: t('App.Ordres Fabricacio'),
-            icon: faIcon({ icon: '"fa-solid fa-clipboard-list' }),
-            hidden: !permisosStore.teModul('OFS')
-          },
-          {
-            href: '/entrades',
-            title: t('App.Entrades'),
-            icon: faIcon({ icon: '"fa-solid fa-inbox' }),
-            hidden: !permisosStore.teModul('ENTRADES')
-          },
-          {
-            href: '/comandesEDI2',
-            title: t('EDI2'),
-            icon: faIcon({ icon: '"fa-solid fa-indent' }),
-            hidden: !permisosStore.teModul('COMANDES_EDI'),
-            badge: ediStore.count > 0
-              ? { text: ediStore.count.toString(), class: 'badge-count' }
-              : undefined
-          },
-          {
-            href: '/movimentsMagatzem',
-            title: t('App.MovimentsMagatzem'),
-            icon: faIcon({ icon: '"fa-solid fa-warehouse' }),
-          },
-          {
-            href: '/consums',
-            title: t('App.Consums'),
-            icon: faIcon({ icon: '"fa-solid fa-box-open' }),
-            // TODO Permisos: afegir hidden: !permisosStore.teModul('CONSUMS') quan es configuri el mòdul
-          }
         ]}
 
     // eslint-disable-next-line

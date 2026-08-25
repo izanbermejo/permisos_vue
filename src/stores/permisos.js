@@ -24,13 +24,6 @@ export const usePermisosStore = defineStore('permisos', {
         return this.moduls.has(modul) &&
              this.moduls.get(modul).includes(permis)
     },
-
-    teUsuariAntic() {
-      if (this.parametres.has('USUARI_ANTIC')) {
-        return this.parametres.get('USUARI_ANTIC')[0];
-      }
-      return false;
-    },
   }
 
 })
