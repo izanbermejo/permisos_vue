@@ -8,17 +8,17 @@ function lazyView(view) {
 const routes = [
   {
     path: '/',
-    redirect: '/comandes'
+    redirect: '/aplicacions'
   },
   {
     path: '/errorpermisos',
     component: lazyView('ErrorPermisosView'),
   },
   {
-    name: 'tarifes',
-    path: '/tarifes',
-    component: lazyView('TarifesView'),
-    meta: {modul: 'TARIFES'}
+    name: 'aplicacions',
+    path: '/aplicacions',
+    component: lazyView('AplicacionsView'),
+    // meta: {modul: 'APLICACIONS'}
   },
 ]
 

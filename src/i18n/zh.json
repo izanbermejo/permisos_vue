@@ -99,5 +99,19 @@
     ],
     "reject": "不",
     "weekHeader": "英石"
-  }
+  },
+  "App.Aplicacions": "应用程序",
+  "Aplicacions.Cap Aplicacio": "没有应用程序",
+  "Aplicacions.NomAplicacio": "应用名称",
+  "Aplicacions.Descripcio": "描述",
+  "Aplicacions.editarAplicacio": "编辑应用程序",
+  "Aplicacions.eliminarAplicacio": "删除应用程序",
+  "Aplicacions.novaAplicacio": "新应用程序",
+  "Aplicacions.Editar Aplicacio": "编辑应用程序",
+  "Aplicacions.Crear Aplicacio": "创建应用程序",
+  "Aplicacions.descripcio": "描述",
+  "Aplicacions.nom aplicacio": "应用程序名称",
+  "Entrades.aplicacio guardada correctament": "应用已成功保存",
+  "Aplicacions.Eliminar Aplicacio": "删除应用程序",
+  "Aplicacions.Confirmacio eliminar aplicacio": "您想永久删除应用程序 {nomAplicacio} 吗？"
 }

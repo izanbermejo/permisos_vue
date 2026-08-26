@@ -104,5 +104,19 @@
     "firstDayOfWeek": "1",
     "dateFormat": "dd/mm/y",
     "dateFormatPlaceholder": "DD/MM/YY"
-  }
+  },
+  "App.Aplicacions": "Aplicaciones",
+  "Aplicacions.Cap Aplicacio": "Ninguna aplicación",
+  "Aplicacions.NomAplicacio": "Nombre aplicación",
+  "Aplicacions.Descripcio": "Descripción",
+  "Aplicacions.editarAplicacio": "Editar aplicación",
+  "Aplicacions.eliminarAplicacio": "Eliminar aplicación",
+  "Aplicacions.novaAplicacio": "Nueva aplicación",
+  "Aplicacions.Editar Aplicacio": "Editar aplicación",
+  "Aplicacions.Crear Aplicacio": "Crear aplicación",
+  "Aplicacions.descripcio": "Descripción",
+  "Aplicacions.nom aplicacio": "Nombre de la aplicación",
+  "Entrades.aplicacio guardada correctament": "Aplicación guardada correctamente",
+  "Aplicacions.Eliminar Aplicacio": "Eliminar aplicación",
+  "Aplicacions.Confirmacio eliminar aplicacio": "¿Quieres eliminar la aplicación {nomAplicacio} de forma permanente?"
 }

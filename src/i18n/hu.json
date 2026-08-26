@@ -99,5 +99,19 @@
     ],
     "reject": "Nem",
     "weekHeader": "ST"
-  }
+  },
+  "App.Aplicacions": "Alkalmazások",
+  "Aplicacions.Cap Aplicacio": "Nincs alkalmazás",
+  "Aplicacions.NomAplicacio": "Alkalmazás neve",
+  "Aplicacions.Descripcio": "Leírás",
+  "Aplicacions.editarAplicacio": "Alkalmazás szerkesztése",
+  "Aplicacions.eliminarAplicacio": "Alkalmazás eltávolítása",
+  "Aplicacions.novaAplicacio": "Új alkalmazás",
+  "Aplicacions.Editar Aplicacio": "Alkalmazás szerkesztése",
+  "Aplicacions.Crear Aplicacio": "Alkalmazás létrehozása",
+  "Aplicacions.descripcio": "Leírás",
+  "Aplicacions.nom aplicacio": "Alkalmazás neve",
+  "Entrades.aplicacio guardada correctament": "Alkalmazás sikeresen mentve",
+  "Aplicacions.Eliminar Aplicacio": "Alkalmazás eltávolítása",
+  "Aplicacions.Confirmacio eliminar aplicacio": "Akarod véglegesen eltávolítani a {nomAplicacio} alkalmazást?"
 }

@@ -72,7 +72,8 @@
     "EDI_pendientes": "Et queden {0} edi per processar",
     "MovimentsMagatzem": "Moviments magatzem",
     "Consums": "Consums",
-    "Permisos": "Permisos"
+    "Permisos": "Permisos",
+    "Aplicacions": "Aplicacions"
   },
   "Primevue": {
     "accept": "Sí",
@@ -105,5 +106,18 @@
     "firstDayOfWeek": "1",
     "dateFormat": "dd/mm/y",
     "dateFormatPlaceholder": "DD/MM/YY"
-  }
+  },
+  "Aplicacions.Cap Aplicacio": "Cap aplicació",
+  "Aplicacions.NomAplicacio": "Nom de l'aplicació",
+  "Aplicacions.Descripcio": "Descripció",
+  "Aplicacions.editarAplicacio": "Editar aplicació",
+  "Aplicacions.eliminarAplicacio": "Eliminar aplicació",
+  "Aplicacions.novaAplicacio": "Nova aplicació",
+  "Aplicacions.Editar Aplicacio": "Editar aplicació",
+  "Aplicacions.Crear Aplicacio": "Crear aplicació",
+  "Aplicacions.descripcio": "Descripció",
+  "Aplicacions.nom aplicacio": "Nom de l'aplicació",
+  "Entrades.aplicacio guardada correctament": "Aplicació guardada correctament",
+  "Aplicacions.Eliminar Aplicacio": "Eliminar aplicació",
+  "Aplicacions.Confirmacio eliminar aplicacio": "Vols eliminar l'aplicació {nomAplicacio} de forma permanent?"
 }

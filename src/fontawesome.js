@@ -82,7 +82,8 @@ import {
   faHammer,
   faAnglesDown,
   faAnglesUp,
-  faPaperclip
+  faPaperclip,
+  faGrip,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -168,5 +169,6 @@ library.add(
   faHammer,
   faAnglesDown,
   faAnglesUp,
-  faPaperclip
+  faPaperclip,
+  faGrip,
 )

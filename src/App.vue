@@ -142,9 +142,9 @@ export default {
             component: markRaw(separator)
           },
           {
-            href: '/permisos',
-            title: t('App.Titol'),
-            icon: faIcon({ icon: '"fa-solid fa-tags' }),
+            href: '/aplicacions',
+            title: t('App.Aplicacions'),
+            icon: faIcon({ icon: 'fa-solid fa-grip' }),
             // hidden: !permisosStore.teModul('TARIFES')
           },
         ]}
