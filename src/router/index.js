@@ -20,6 +20,11 @@ const routes = [
     component: lazyView('AplicacionsView'),
     // meta: {modul: 'APLICACIONS'}
   },
+  {
+    name: 'moduls',
+    path: '/moduls',
+    component: lazyView('ModulsView')
+  },
 ]
 
 const router = createRouter({

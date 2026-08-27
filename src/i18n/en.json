@@ -118,5 +118,15 @@
   "Aplicacions.nom aplicacio": "Application name",
   "Entrades.aplicacio guardada correctament": "Application saved successfully",
   "Aplicacions.Eliminar Aplicacio": "Delete application",
-  "Aplicacions.Confirmacio eliminar aplicacio": "Do you want to permanently delete the application {nomAplicacio}?"
+  "Aplicacions.Confirmacio eliminar aplicacio": "Do you want to permanently delete the application {nomAplicacio}?",
+  "App.Moduls": "Modules",
+  "App.seleccionaAplicacio": "Select application",
+  "Moduls.Cap modul": "No module",
+  "Moduls.Nom modul": "Module name",
+  "Moduls.nou modul": "New module",
+  "Moduls.nom modul": "Module name",
+  "Aplicacions.selecciona aplicacio": "Select application",
+  "Moduls.eliminarModul": "Remove module",
+  "Moduls.editarModul": "Edit module",
+  "Moduls.Confirmacio eliminar modul": "Do you want to permanently delete the module {nomModul} from the application {nomAplicacio}?"
 }

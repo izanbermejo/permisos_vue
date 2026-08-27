@@ -113,5 +113,15 @@
   "Aplicacions.nom aplicacio": "应用程序名称",
   "Entrades.aplicacio guardada correctament": "应用已成功保存",
   "Aplicacions.Eliminar Aplicacio": "删除应用程序",
-  "Aplicacions.Confirmacio eliminar aplicacio": "您想永久删除应用程序 {nomAplicacio} 吗？"
+  "Aplicacions.Confirmacio eliminar aplicacio": "您想永久删除应用程序 {nomAplicacio} 吗？",
+  "App.Moduls": "模块",
+  "App.seleccionaAplicacio": "选择应用程序",
+  "Moduls.Cap modul": "没有模块",
+  "Moduls.Nom modul": "模块名称",
+  "Moduls.nou modul": "新模块",
+  "Moduls.nom modul": "模块名称",
+  "Aplicacions.selecciona aplicacio": "选择应用程序",
+  "Moduls.eliminarModul": "删除模块",
+  "Moduls.editarModul": "编辑模块",
+  "Moduls.Confirmacio eliminar modul": "你想永久删除应用程序 {nomAplicacio} 的模块 {nomModul} 吗？"
 }

@@ -7,7 +7,6 @@ class AplicacionsService {
   }
   
   obtenirAplicacio(nomAplicacio){
-    console.log('obtenirAplicacio', nomAplicacio);
     return apiComercial.get(`aplicacions/${nomAplicacio}`);
   }
 
@@ -15,11 +14,11 @@ class AplicacionsService {
     return apiComercial.delete(`aplicacions/delete/${nomAplicacio}`);
   }
 
-  guardarAplicacio(aplicacio){
+  crearAplicacio(aplicacio){
     return apiComercial.post(`aplicacions`, aplicacio);
   }
 
-  actualitzarAplicacio(nomAplicacio, aplicacio){
+  modificarAplicacio(nomAplicacio, aplicacio){
     return apiComercial.put(`aplicacions/${nomAplicacio}`, aplicacio);
   }
 

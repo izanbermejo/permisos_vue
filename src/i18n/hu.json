@@ -113,5 +113,15 @@
   "Aplicacions.nom aplicacio": "Alkalmazás neve",
   "Entrades.aplicacio guardada correctament": "Alkalmazás sikeresen mentve",
   "Aplicacions.Eliminar Aplicacio": "Alkalmazás eltávolítása",
-  "Aplicacions.Confirmacio eliminar aplicacio": "Akarod véglegesen eltávolítani a {nomAplicacio} alkalmazást?"
+  "Aplicacions.Confirmacio eliminar aplicacio": "Akarod véglegesen eltávolítani a {nomAplicacio} alkalmazást?",
+  "App.Moduls": "Modulok",
+  "App.seleccionaAplicacio": "Válassza ki az alkalmazást",
+  "Moduls.Cap modul": "Nincs modul",
+  "Moduls.Nom modul": "A modul neve",
+  "Moduls.nou modul": "Új modul",
+  "Moduls.nom modul": "A modul neve",
+  "Aplicacions.selecciona aplicacio": "Válassza ki az alkalmazást",
+  "Moduls.eliminarModul": "Modul törlése",
+  "Moduls.editarModul": "Modul szerkesztése",
+  "Moduls.Confirmacio eliminar modul": "Akarod véglegesen eltávolítani a {nomModul} modult a {nomAplicacio} alkalmazásból?"
 }

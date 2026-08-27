@@ -147,6 +147,11 @@ export default {
             icon: faIcon({ icon: 'fa-solid fa-grip' }),
             // hidden: !permisosStore.teModul('TARIFES')
           },
+          {
+            href: '/moduls',
+            title: t('App.Moduls'),
+            icon: faIcon({ icon: 'fa-solid fa-layer-group' })
+          },
         ]}
 
     // eslint-disable-next-line

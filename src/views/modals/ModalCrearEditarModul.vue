@@ -4,8 +4,24 @@
     <div class="form" style="margin-top: 10px;">
       <div class="element-form">
         <label>{{ $t('Aplicacions.nom aplicacio') }}</label>
-        <InputText ref="inputFiltre" v-model="state.nomAplicacio" style="width: 100%; text-transform: uppercase;" :disabled="props.isEdit" @input="state.nomAplicacio = state.nomAplicacio.toUpperCase()"/>
+        <div>
+          <Dropdown v-model="state.nomAplicacio" :options="props.llistaAplicacions"
+                      optionLabel="nomAplicacio" optionValue="nomAplicacio"
+                      :placeholder="$t('Aplicacions.selecciona aplicacio')" :disabled="props.isEdit"
+                      style="width: 300px;" />
+          <span v-if="state.nomAplicacio" style="margin-left: 15px; cursor: pointer; width: 1.5rem; display: inline-block; text-align: center;"
+              v-tooltip="descripcioAplicacioSeleccionada"
+              @click="selectedLinia = data, clickDescarregaFormatPdf()">
+              <font-awesome-icon icon="fa-solid fa-info" style="font-size: 1.10rem"/>
+          </span>
+
+        </div>
         <small v-if="(v.nomAplicacio.$errors.length)" class="p-error text-nowrap">{{$t('App.Valor requerit')}}</small>
+      </div>
+      <div class="element-form">
+        <label>{{ $t('Moduls.nom modul') }}</label>
+        <InputText ref="inputFiltre" v-model="state.nomModul" style="width: 100%; text-transform: uppercase;" :disabled="props.isEdit" @input="state.nomModul = state.nomModul.toUpperCase()"/>
+        <small v-if="(v.nomModul.$errors.length)" class="p-error text-nowrap">{{$t('App.Valor requerit')}}</small>
       </div>
       <div class="break"></div>
       <div class="element-form">
@@ -24,22 +40,30 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted, onUnmounted } from "vue";
+import { ref, reactive, computed, onMounted, onUnmounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useToast } from "primevue/usetoast";
 import { carrega } from "@/services/loader";
-import aplicacionsService from "@/services/aplicacions.service";
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+import modulsService from "@/services/moduls.service";
 
 export default {
-  name: "ModalCrearEditarAplicacio",
+  name: "ModalCrearEditarModul",
   props: {
     isEdit: {
       type: Boolean,
       default: false
     },
+    llistaAplicacions: {
+      type: Array,
+      default: () => []
+    },
     nomAplicacio: {
+      type: String,
+      default: null
+    },
+    nomModul: {
       type: String,
       default: null
     }
@@ -50,15 +74,20 @@ export default {
     const visible = ref(true);
     const state = reactive({
       nomAplicacio: '',
+      nomModul: '',
       descripcio: '',
     });
+    const descripcioAplicacioSeleccionada = computed(() =>
+      props.llistaAplicacions.find(aplicacio => aplicacio.nomAplicacio === state.nomAplicacio)?.descripcio || ''
+    );
 
     onMounted( async () => {
       document.addEventListener("keydown", handler);
 
       if (props.isEdit && props.nomAplicacio) {
-        const resp = await carrega(aplicacionsService.obtenirAplicacio(props.nomAplicacio));
+        const resp = await carrega(modulsService.obtenirModul(props.nomAplicacio, props.nomModul));
         state.nomAplicacio = resp.nomAplicacio;
+        state.nomModul = resp.nomModul;
         state.descripcio = resp.descripcio;
       } 
     });
@@ -69,6 +98,7 @@ export default {
 
     const rules = {
       nomAplicacio: { required },
+      nomModul: { required },
       descripcio: { required },
     };
     const v = useVuelidate(rules, state);
@@ -79,12 +109,13 @@ export default {
       if (!v.value.$error) {
         let request = {
           nomAplicacio: state.nomAplicacio,
+          nomModul: state.nomModul,
           descripcio: state.descripcio
         }
         if (props.isEdit) {
-          await carrega(aplicacionsService.modificarAplicacio(props.nomAplicacio, request));
+          await carrega(modulsService.modificarModul(props.nomAplicacio, props.nomModul, request));
         } else {
-          await carrega(aplicacionsService.crearAplicacio(request));
+          await carrega(modulsService.crearModul(request));
         }
 
         toast.add({severity:'success', summary: t('Entrades.aplicacio guardada correctament'), life: 3000});
@@ -107,6 +138,7 @@ export default {
       visible,
       props,
       state,
+      descripcioAplicacioSeleccionada,
       v,
       guardar,
       hide,

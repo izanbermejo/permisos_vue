@@ -119,5 +119,15 @@
   "Aplicacions.nom aplicacio": "Nom de l'aplicació",
   "Entrades.aplicacio guardada correctament": "Aplicació guardada correctament",
   "Aplicacions.Eliminar Aplicacio": "Eliminar aplicació",
-  "Aplicacions.Confirmacio eliminar aplicacio": "Vols eliminar l'aplicació {nomAplicacio} de forma permanent?"
+  "Aplicacions.Confirmacio eliminar aplicacio": "Vols eliminar l'aplicació {nomAplicacio} de forma permanent?",
+  "App.Moduls": "Mòduls",
+  "App.seleccionaAplicacio": "Selecciona aplicació",
+  "Moduls.Cap modul": "Cap mòdul",
+  "Moduls.Nom modul": "Nom del mòdul",
+  "Moduls.nou modul": "Nou mòdul",
+  "Moduls.nom modul": "Nom del mòdul",
+  "Aplicacions.selecciona aplicacio": "Selecciona aplicació",
+  "Moduls.eliminarModul": "Eliminar mòdul",
+  "Moduls.editarModul": "Editar mòdul",
+  "Moduls.Confirmacio eliminar modul": "Voleu eliminar el mòdul {nomModul} de l'aplicació {nomAplicacio} de manera permanent?"
 }
