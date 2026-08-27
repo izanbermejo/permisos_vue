@@ -85,6 +85,8 @@ import {
   faPaperclip,
   faGrip,
   faLayerGroup,
+  faUserLock,
+  faList,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -173,4 +175,6 @@ library.add(
   faPaperclip,
   faGrip,
   faLayerGroup,
+  faUserLock,
+  faList,
 )

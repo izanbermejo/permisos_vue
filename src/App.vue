@@ -152,6 +152,16 @@ export default {
             title: t('App.Moduls'),
             icon: faIcon({ icon: 'fa-solid fa-layer-group' })
           },
+          {
+            href: '/permisos',
+            title: t('App.Permisos'),
+            icon: faIcon({ icon: 'fa-solid fa-user-lock' })
+          },
+          {
+            href: '/parametres',
+            title: t('App.Parametres'),
+            icon: faIcon({ icon: 'fa-solid fa-list' })
+          },
         ]}
 
     // eslint-disable-next-line

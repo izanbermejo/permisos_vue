@@ -123,5 +123,7 @@
   "Aplicacions.selecciona aplicacio": "Válassza ki az alkalmazást",
   "Moduls.eliminarModul": "Modul törlése",
   "Moduls.editarModul": "Modul szerkesztése",
-  "Moduls.Confirmacio eliminar modul": "Akarod véglegesen eltávolítani a {nomModul} modult a {nomAplicacio} alkalmazásból?"
+  "Moduls.Confirmacio eliminar modul": "Akarod véglegesen eltávolítani a {nomModul} modult a {nomAplicacio} alkalmazásból?",
+  "App.Parametres": "Paraméterek",
+  "App.Permisos": "Engedélyek"
 }

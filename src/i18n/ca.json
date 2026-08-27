@@ -129,5 +129,7 @@
   "Aplicacions.selecciona aplicacio": "Selecciona aplicació",
   "Moduls.eliminarModul": "Eliminar mòdul",
   "Moduls.editarModul": "Editar mòdul",
-  "Moduls.Confirmacio eliminar modul": "Voleu eliminar el mòdul {nomModul} de l'aplicació {nomAplicacio} de manera permanent?"
+  "Moduls.Confirmacio eliminar modul": "Voleu eliminar el mòdul {nomModul} de l'aplicació {nomAplicacio} de manera permanent?",
+  "App.Parametres": "Paràmetres",
+  "App.Permisos": "Permisos"
 }

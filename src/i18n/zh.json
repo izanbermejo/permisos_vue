@@ -123,5 +123,7 @@
   "Aplicacions.selecciona aplicacio": "选择应用程序",
   "Moduls.eliminarModul": "删除模块",
   "Moduls.editarModul": "编辑模块",
-  "Moduls.Confirmacio eliminar modul": "你想永久删除应用程序 {nomAplicacio} 的模块 {nomModul} 吗？"
+  "Moduls.Confirmacio eliminar modul": "你想永久删除应用程序 {nomAplicacio} 的模块 {nomModul} 吗？",
+  "App.Parametres": "参数",
+  "App.Permisos": "权限"
 }
