@@ -52,7 +52,7 @@ import ModalCrearEditarAplicacio from '@/views/modals/ModalCrearEditarAplicacio.
 import { useConfirm } from 'primevue/useconfirm';
 
 export default {
-  name: 'ComandesView',
+  name: 'AplicacionsView',
   components: {
     ModalCrearEditarAplicacio
   },

@@ -1,5 +1,8 @@
 <template>
   <ModalCrearEditarModul v-if="visibleCrearEditarModul" :carregat="visibleCrearEditarModul"  @update:carregat="visibleCrearEditarModul = $event" :isEdit="isEdit" :llistaAplicacions="aplicacions" :nomAplicacio="nomAplicacio" :nomModul="nomModul" @actualitzar="carregaModuls()" />
+  <ModalFuncionsDelModul v-if="visibleFuncionsDelModul" :carregat="visibleFuncionsDelModul"  @update:carregat="visibleFuncionsDelModul = $event" :nomAplicacio="nomAplicacio" :nomModul="nomModul" />
+  <ModalEmpleatsDelModul v-if="visibleEmpleatsDelModul" :carregat="visibleEmpleatsDelModul"  @update:carregat="visibleEmpleatsDelModul = $event" :nomAplicacio="nomAplicacio" :nomModul="nomModul" />
+  <ModalTotsElsEmpleatsDelModul v-if="visibleTotsElsEmpleatsDelModul" :carregat="visibleTotsElsEmpleatsDelModul"  @update:carregat="visibleTotsElsEmpleatsDelModul = $event" :nomAplicacio="nomAplicacio" :nomModul="nomModul" />
   <div class="card" style="margin: 15px;">
     <h5 class="card-header">
       <font-awesome-icon icon="fa-solid fa-layer-group" style="font-size: 1.25rem" />
@@ -37,7 +40,7 @@
             </div>
           </template>
         </Column>
-        <Column :header="$t('Aplicacions.NomAplicacio')" :style="{ width: '350px' }" style="max-width: 350px;" field="nomAplicacio" sortable>
+        <Column :header="$t('App.Aplicacio')" :style="{ width: '350px' }" style="max-width: 350px;" field="nomAplicacio" sortable>
           <template #body="{ data }">
             {{ data.nomAplicacio }}
           </template>
@@ -63,12 +66,18 @@ import aplicacionsService from '@/services/aplicacions.service';
 import { useI18n } from 'vue-i18n';
 import { useConfirm } from 'primevue/useconfirm';
 import modulsService from '@/services/moduls.service';
-import ModalCrearEditarModul from './modals/ModalCrearEditarModul.vue';
+import ModalCrearEditarModul from './modals/moduls/ModalCrearEditarModul.vue';
+import ModalFuncionsDelModul from './modals/moduls/ModalFuncionsDelModul.vue';
+import ModalEmpleatsDelModul from './modals/moduls/ModalEmpleatsDelModul.vue';
+import ModalTotsElsEmpleatsDelModul from './modals/moduls/ModalTotsElsEmpleatsDelModul.vue';
 
 export default {
-  name: 'ComandesView',
+  name: 'ModulsView',
   components: {
-    ModalCrearEditarModul
+    ModalCrearEditarModul,
+    ModalFuncionsDelModul,
+    ModalEmpleatsDelModul,
+    ModalTotsElsEmpleatsDelModul,
   },
   setup() {
     const { t } = useI18n();
@@ -82,6 +91,9 @@ export default {
     const nomModul = ref(null);
     const filtreAplicacions = ref([]);
     const visibleCrearEditarModul = ref(false);
+    const visibleFuncionsDelModul = ref(false);
+    const visibleEmpleatsDelModul = ref(false);
+    const visibleTotsElsEmpleatsDelModul = ref(false);
     const confirm = useConfirm();
 
     const sortField = ref(null);
@@ -141,29 +153,54 @@ export default {
       visibleCrearEditarModul.value = true;
     };
 
+    const mostrarFuncionsDelModul = async (nomAplicacioSeleccionada, nomModulSeleccionat) => {
+      nomAplicacio.value = nomAplicacioSeleccionada;
+      nomModul.value = nomModulSeleccionat;
+      visibleFuncionsDelModul.value = true;
+    };
+
+    const mostrarEmpleatsDelModul = async (nomAplicacioSeleccionada, nomModulSeleccionat) => {
+      nomAplicacio.value = nomAplicacioSeleccionada;
+      nomModul.value = nomModulSeleccionat;
+      visibleEmpleatsDelModul.value = true;
+    };
+
+    const mostrarTotsElsEmpleatsDelModul = async (nomAplicacioSeleccionada, nomModulSeleccionat) => {
+      nomAplicacio.value = nomAplicacioSeleccionada;
+      nomModul.value = nomModulSeleccionat;
+      visibleTotsElsEmpleatsDelModul.value = true;
+    };
+
     const eliminarModul = async (nomAplicacio, nomModul) => {
-      
-      confirm.require({
-        header: t('Moduls.Eliminar Modul'),
-        acceptClass: 'p-button-danger',
-        message: t('Moduls.Confirmacio eliminar modul', { nomModul: nomModul.value, nomAplicacio: nomAplicacio.value }),
-        icon: 'pi pi-exclamation-triangle',
-        accept: async () => {
-          await modulsService.eliminarModul(nomAplicacio, nomModul);
-          carregaModuls();
-        }
-      });
+      const resultat = await modulsService.eliminarModul(nomAplicacio, nomModul, false);
+
+      if (resultat.requereixConfirmacio) {
+        confirm.require({
+          header: t('Moduls.Eliminar Modul'),
+          acceptClass: 'p-button-danger',
+          message: t('Moduls.Confirmacio eliminar modul amb funcions i empleats'),
+          icon: 'pi pi-exclamation-triangle',
+          accept: async () => {
+            await modulsService.eliminarModul(nomAplicacio, nomModul, true);
+
+            carregaModuls();
+          }
+        });
+      } else {
+        carregaModuls();
+      }
     };
 
     const menuModel = computed(() => {
         let result = [];
+        result.push({ label: () => `${t('Moduls.funcionsModul')}`, class: 'p-button-text', icon: 'pi pi-sitemap', command: () => mostrarFuncionsDelModul(registreSeleccionat.value.nomAplicacio, registreSeleccionat.value.nomModul) });
+        result.push({ label: () => `${t('Moduls.empleat modul')}`, class: 'p-button-text', icon: 'pi pi-user', command: () => mostrarEmpleatsDelModul(registreSeleccionat.value.nomAplicacio, registreSeleccionat.value.nomModul) });
+        result.push({ label: () => `${t('Moduls.tots acces')}`, class: 'p-button-text', icon: 'pi pi-users', command: () => mostrarTotsElsEmpleatsDelModul(registreSeleccionat.value.nomAplicacio, registreSeleccionat.value.nomModul) });
+        result.push({ separator: true });
         result.push({ label: () => `${t('Moduls.editarModul')}`, class: 'p-button-text', icon: 'pi pi-pencil', command: () => crearEditarModul(true, registreSeleccionat.value.nomAplicacio, registreSeleccionat.value.nomModul) });
-        result.push({ label: () => `${t('Moduls.eliminarModul')}`, class: 'p-button-text', icon: 'pi pi-trash', command: () => eliminarModul(registreSeleccionat.value.nomAplicacio, registreSeleccionat.value.nomModul) });
+        result.push({ label: () => `${t('Moduls.Eliminar Modul')}`, class: 'p-button-text', icon: 'pi pi-trash', command: () => eliminarModul(registreSeleccionat.value.nomAplicacio, registreSeleccionat.value.nomModul) });
       return result;
     });
-
-
-
 
     return {
       onSort,
@@ -174,10 +211,13 @@ export default {
       contextMenu,
       menuModel,
       crearEditarModul,
-      eliminarAplicacio: eliminarModul,
+      eliminarModul,
       carregaAplicacions,
       carregaModuls,
       visibleCrearEditarModul,
+      visibleFuncionsDelModul,
+      visibleEmpleatsDelModul,
+      visibleTotsElsEmpleatsDelModul,
       isEdit,
       nomAplicacio,
       nomModul,

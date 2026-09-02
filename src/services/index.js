@@ -6,6 +6,14 @@ import moment from 'moment';
 
 const { locale } = i18n.global;
 
+export const getLocalizedJson = (mapTraduccions) => {
+    if (!mapTraduccions) {
+        return '';
+    }
+    let idiomaActual = locale.value.substring(0,2) || 'ca';
+    return mapTraduccions[idiomaActual] || mapTraduccions['ca'];
+};
+
 function createInstance(baseURL) {
     const instance = axios.create({
         baseURL,
@@ -78,5 +86,5 @@ function showSwalError(text, title = '') {
     });
 }
 
-export const apiComercial = createInstance(process.env.VUE_APP_API_URL);
+export const apiPermisos = createInstance(process.env.VUE_APP_API_URL);
 export const apiOrganigrama = createInstance(process.env.VUE_APP_API_URL_ORGANIGRAMA);

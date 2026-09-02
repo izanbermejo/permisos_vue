@@ -48,7 +48,7 @@ import InfoTaulaBuida from "./components/InfoTaulaBuida.vue";
 import ButtonShortcut from "./components/ButtonShortcut.vue";
 import BadgeDirective from 'primevue/badgedirective';
 
-import PluginComercial from "./plugins/PluginComercial";
+import PluginComercial from "./plugins/PluginPermisos.js";
 
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -153,6 +153,7 @@ const app = createApp(App)
 
 // Store de permisos
 import { usePermisosStore } from './stores/permisos';
+import OrganigramaService from "./services/organigrama.service.js";
 const permisosStore = usePermisosStore();
 
 // Inicialització de KeyCloak
@@ -170,9 +171,17 @@ keycloak.init({onLoad: 'login-required', checkLoginIframe: false})
         document.getElementById('permisos').style.visibility = 'visible';
       } else {
         // Càrrega de metadades
-        // const data = await ComandesService.metadata();
-        // localStorage.setItem('metadata', JSON.stringify(data));
-        // localStorage.setItem('comandes', null);
+        const centres = await OrganigramaService.obtenirCentres();
+        const departaments = await OrganigramaService.obtenirDepartaments();
+        const funcions = await OrganigramaService.obtenirFuncions();
+        const empleats = await OrganigramaService.obtenirEmpleats();
+        const data = {
+          centres: centres,
+          departaments: departaments,
+          funcions: funcions,
+          empleats: empleats,
+        };
+        localStorage.setItem('metadata', JSON.stringify(data));
 
         // Inici de l'aplicació Vue
         app.use(PluginComercial)

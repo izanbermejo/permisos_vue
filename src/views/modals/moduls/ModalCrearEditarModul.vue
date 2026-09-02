@@ -1,9 +1,9 @@
 <template>
   <Dialog v-model:visible="visible" modal @hide="hide" :closable="true" :closeOnEscape="true"
-    :draggable="false" :header="props.isEdit ? $t('Aplicacions.Editar Aplicacio') : $t('Aplicacions.Crear Aplicacio')" style="width: 600px">
+    :draggable="true" :header="props.isEdit ? $t('Moduls.Editar Modul') : $t('Moduls.Crear Modul')" style="width: 600px">
     <div class="form" style="margin-top: 10px;">
       <div class="element-form">
-        <label>{{ $t('Aplicacions.nom aplicacio') }}</label>
+        <label>{{ $t('App.Aplicacio') }}</label>
         <div>
           <Dropdown v-model="state.nomAplicacio" :options="props.llistaAplicacions"
                       optionLabel="nomAplicacio" optionValue="nomAplicacio"
@@ -11,7 +11,7 @@
                       style="width: 300px;" />
           <span v-if="state.nomAplicacio" style="margin-left: 15px; cursor: pointer; width: 1.5rem; display: inline-block; text-align: center;"
               v-tooltip="descripcioAplicacioSeleccionada"
-              @click="selectedLinia = data, clickDescarregaFormatPdf()">
+              @click="selectedLinia = data">
               <font-awesome-icon icon="fa-solid fa-info" style="font-size: 1.10rem"/>
           </span>
 
@@ -118,7 +118,7 @@ export default {
           await carrega(modulsService.crearModul(request));
         }
 
-        toast.add({severity:'success', summary: t('Entrades.aplicacio guardada correctament'), life: 3000});
+        toast.add({severity:'success', summary: t('Moduls.modul guardat correctament'), life: 3000});
         hide();
       }
     }

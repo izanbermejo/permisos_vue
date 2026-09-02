@@ -1,25 +1,25 @@
-import { apiComercial } from '@/services/index.js';
+import { apiPermisos } from '@/services/index.js';
 
 class AplicacionsService {
 
   obtenirAplicacions(){
-    return apiComercial.get(`aplicacions`);
+    return apiPermisos.get(`aplicacions`);
   }
   
   obtenirAplicacio(nomAplicacio){
-    return apiComercial.get(`aplicacions/${nomAplicacio}`);
+    return apiPermisos.get(`aplicacions/${nomAplicacio}`);
   }
 
   eliminarAplicacio(nomAplicacio){
-    return apiComercial.delete(`aplicacions/delete/${nomAplicacio}`);
+    return apiPermisos.delete(`aplicacions/delete/${nomAplicacio}`);
   }
 
   crearAplicacio(aplicacio){
-    return apiComercial.post(`aplicacions`, aplicacio);
+    return apiPermisos.post(`aplicacions`, aplicacio);
   }
 
   modificarAplicacio(nomAplicacio, aplicacio){
-    return apiComercial.put(`aplicacions/${nomAplicacio}`, aplicacio);
+    return apiPermisos.put(`aplicacions/${nomAplicacio}`, aplicacio);
   }
 
 }
