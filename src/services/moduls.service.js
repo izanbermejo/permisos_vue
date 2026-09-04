@@ -1,6 +1,10 @@
 import { apiPermisos } from '@/services/index.js';
 
 class ModulsService {
+  obtenirModuls() {
+    return apiPermisos.get(`moduls`);
+  }
+
   obtenirModulsByAplicacio(nomAplicacions){
     return apiPermisos.get(`moduls/aplicacions?${nomAplicacions}`);
   }

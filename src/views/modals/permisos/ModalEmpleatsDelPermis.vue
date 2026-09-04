@@ -1,14 +1,14 @@
 <template>
   <ModalFuncionsEmpleat v-if="visibleFuncionsEmpleat" :carregat="visibleFuncionsEmpleat"
     @update:carregat="visibleFuncionsEmpleat = $event" :idEmpleat="idEmpleat" />
-  <ModalAfegirEmpleatDelModul v-if="visibleAfegirEmpleatDelModul" :carregat="visibleAfegirEmpleatDelModul"
-    @update:carregat="visibleAfegirEmpleatDelModul = $event" :nomAplicacio="props.nomAplicacio"
-    :nomModul="props.nomModul" @actualitzar="carregaEmpleatsDelModul()"/>
+  <ModalAfegirEmpleatDelPermis v-if="visibleAfegirEmpleatDelPermis" :carregat="visibleAfegirEmpleatDelPermis"
+    @update:carregat="visibleAfegirEmpleatDelPermis = $event" :nomAplicacio="props.nomAplicacio"
+    :nomModul="props.nomModul" :nomPermis="props.nomPermis" @actualitzar="carregaEmpleatsDelPermis()"/>
   <Dialog v-model:visible="visible" modal @hide="hide" :closable="true" :closeOnEscape="false" :draggable="true" :contentStyle="{ overflowY: 'hidden' }">
     <template #header>
       <div style="width: 100%;">
-        <span style="font-size: larger; font-weight: 600; float: left;">{{ `${$t('Moduls.empleat modul')} ${props.nomAplicacio} - ${props.nomModul}` }}</span>
-        <ButtonShortcut :literal="$t('Moduls.Afegir empleat del Modul')" @click="visibleAfegirEmpleatDelModul = true"
+        <span style="font-size: larger; font-weight: 600; float: left;">{{ `${$t('Permisos.empleat permis')} ${props.nomAplicacio} - ${props.nomModul} - ${props.nomPermis}` }}</span>
+        <ButtonShortcut :literal="$t('Permisos.Afegir Empleat al permis')" @click="visibleAfegirEmpleatDelPermis = true"
           icon="fa-solid fa-plus" style="margin-left: 25px;"/>
       </div>
     </template>
@@ -54,18 +54,18 @@
 <script>
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import modulsService from '@/services/moduls.service';
+import permisosService from '@/services/permisos.service';
 import { getLocalizedJson } from "@/services/index";
 import { useConfirm } from 'primevue/useconfirm';
 import { isContextMenuKey } from '@/utils/contextmenuUtils.js';
 import ModalFuncionsEmpleat from '../ModalFuncionsEmpleat.vue';
-import ModalAfegirEmpleatDelModul from './ModalAfegirEmpleatDelModul.vue';
+import ModalAfegirEmpleatDelPermis from './ModalAfegirEmpleatDelPermis.vue';
 
 export default {
-  name: 'ModalEmpleatsDelModul',
+  name: 'ModalEmpleatsDelPermis',
   components: {
     ModalFuncionsEmpleat,
-    ModalAfegirEmpleatDelModul,
+    ModalAfegirEmpleatDelPermis,
   },
   props: {
     nomAplicacio: {
@@ -73,6 +73,10 @@ export default {
       default: null
     },
     nomModul: {
+      type: String,
+      default: null
+    },
+    nomPermis: {
       type: String,
       default: null
     },
@@ -86,7 +90,7 @@ export default {
     const registreSeleccionat = ref();
     const selectedIndex = ref(-1);
     const visibleFuncionsEmpleat = ref(false);
-    const visibleAfegirEmpleatDelModul = ref(false);
+    const visibleAfegirEmpleatDelPermis = ref(false);
     const idEmpleat = ref(null);
 
     const sortField = ref(null);
@@ -99,7 +103,7 @@ export default {
 
     onMounted(async () => {
       document.addEventListener("keydown", handler);
-      await carregaEmpleatsDelModul();
+      await carregaEmpleatsDelPermis();
     });
 
     onUnmounted(() => {
@@ -108,7 +112,7 @@ export default {
 
     const modalVisible = computed(() => {
       return visibleFuncionsEmpleat.value
-      || visibleAfegirEmpleatDelModul.value;
+      || visibleAfegirEmpleatDelPermis.value;
     });
 
     const handler = (ev) => {
@@ -131,8 +135,8 @@ export default {
       emit("update:carregat", false);
     };
 
-    const carregaEmpleatsDelModul = async () => {
-      const data = await modulsService.obtenirEmpleatsByModul(props.nomAplicacio, props.nomModul);
+    const carregaEmpleatsDelPermis = async () => {
+      const data = await permisosService.obtenirEmpleatsByPermis(props.nomAplicacio, props.nomModul, props.nomPermis);
       empleats.value = data;
     }
 
@@ -141,16 +145,16 @@ export default {
       visibleFuncionsEmpleat.value = true;
     };
 
-    const eliminarEmpleat = async (nomAplicacio, nomModul) => {
+    const eliminarEmpleat = async (nomAplicacio, nomModul, nomPermis) => {
 
       confirm.require({
         header: t('Empleats.Eliminar Empleat'),
         acceptClass: 'p-button-danger',
-        message: t('Moduls.Confirmacio eliminar empleat del modul'),
+        message: t('Permisos.Confirmacio eliminar empleat del permis'),
         icon: 'pi pi-exclamation-triangle',
         accept: async () => {
-          await modulsService.eliminarEmpleatDelModul(nomAplicacio, nomModul, registreSeleccionat.value.id);
-          carregaEmpleatsDelModul();
+          await permisosService.eliminarEmpleatDelPermis(nomAplicacio, nomModul, nomPermis, registreSeleccionat.value.id);
+          carregaEmpleatsDelPermis();
         }
       });
     };
@@ -158,14 +162,14 @@ export default {
     const menuModel = computed(() => {
         let result = [];
         result.push({ label: () => `${t('Empleats.funcions empleat')}`, class: 'p-button-text', icon: 'pi pi-user', command: () => funcionsEmpleat(registreSeleccionat.value.id) });
-        result.push({ label: () => `${t('Empleats.eliminar empleat')}`, class: 'p-button-text', icon: 'pi pi-trash', command: () => eliminarEmpleat(props.nomAplicacio, props.nomModul) });
+        result.push({ label: () => `${t('Empleats.eliminar empleat')}`, class: 'p-button-text', icon: 'pi pi-trash', command: () => eliminarEmpleat(props.nomAplicacio, props.nomModul, props.nomPermis) });
       return result;
     });
     
     return {
       visible,
       visibleFuncionsEmpleat,
-      visibleAfegirEmpleatDelModul,
+      visibleAfegirEmpleatDelPermis,
       props,
       onSort,
       empleats,
@@ -173,7 +177,7 @@ export default {
       selectedIndex,
       contextMenu,
       menuModel,
-      carregaEmpleatsDelModul,
+      carregaEmpleatsDelPermis,
       getLocalizedJson,
       hide,
       idEmpleat,

@@ -1,6 +1,6 @@
 <template>
   <Dialog v-model:visible="visible" modal @hide="hide" :closable="true" :closeOnEscape="true"
-    :draggable="true" :header="props.isEdit ? $t('Moduls.Editar Modul') : $t('Moduls.Crear Modul')" style="width: 600px">
+    :draggable="true" :header="props.isEdit ? $t('Permisos.Editar Permis') : $t('Permisos.Crear Permis')" style="width: 600px">
     <div class="form" style="margin-top: 10px;">
       <div class="element-form">
         <label>{{ $t('App.Aplicacio') }}</label>
@@ -18,9 +18,24 @@
         <small v-if="(v.nomAplicacio.$errors.length)" class="p-error text-nowrap">{{$t('App.Valor requerit')}}</small>
       </div>
       <div class="element-form">
-        <label>{{ $t('Moduls.nom modul') }}</label>
-        <InputText ref="inputFiltre" v-model="state.nomModul" style="width: 100%; text-transform: uppercase;" :disabled="props.isEdit" @input="state.nomModul = state.nomModul.toUpperCase()"/>
+        <label>{{ $t('App.Modul') }}</label>
+        <div>
+          <Dropdown v-model="state.nomModul" :options="!isEdit && !state.nomAplicacio ? props.llistaModuls : modulsFiltrats"
+                      optionLabel="nomModul" optionValue="nomModul"
+                      :placeholder="$t('Moduls.selecciona modul')" :disabled="props.isEdit"
+                      style="width: 300px;" />
+          <span v-if="state.nomModul" style="margin-left: 15px; cursor: pointer; width: 1.5rem; display: inline-block; text-align: center;"
+              v-tooltip="descripcioModulSeleccionat">
+              <font-awesome-icon icon="fa-solid fa-info" style="font-size: 1.10rem"/>
+          </span>
+
+        </div>
         <small v-if="(v.nomModul.$errors.length)" class="p-error text-nowrap">{{$t('App.Valor requerit')}}</small>
+      </div>
+      <div class="element-form">
+        <label>{{ $t('Permisos.nom permis') }}</label>
+        <InputText ref="inputFiltre" v-model="state.nomPermis" style="width: 100%; text-transform: uppercase;" :disabled="props.isEdit" @input="state.nomPermis = state.nomPermis.toUpperCase()"/>
+        <small v-if="(v.nomPermis.$errors.length)" class="p-error text-nowrap">{{$t('App.Valor requerit')}}</small>
       </div>
       <div class="break"></div>
       <div class="element-form">
@@ -39,22 +54,26 @@
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted, onUnmounted } from "vue";
+import { ref, reactive, computed, onMounted, onUnmounted, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useToast } from "primevue/usetoast";
 import { carrega } from "@/services/loader";
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
-import modulsService from "@/services/moduls.service";
+import permisosService from "@/services/permisos.service";
 
 export default {
-  name: "ModalCrearEditarModul",
+  name: "ModalCrearEditarPermis",
   props: {
     isEdit: {
       type: Boolean,
       default: false
     },
     llistaAplicacions: {
+      type: Array,
+      default: () => []
+    },
+    llistaModuls: {
       type: Array,
       default: () => []
     },
@@ -65,28 +84,38 @@ export default {
     nomModul: {
       type: String,
       default: null
-    }
+    },
+    nomPermis: {
+      type: String,
+      default: null
+    },
   },
   setup(props, { emit }) {
     const { t } = useI18n();
     const toast = useToast();
     const visible = ref(true);
+    const modulsFiltrats = ref([]);
     const state = reactive({
       nomAplicacio: '',
       nomModul: '',
+      nomPermis: '',
       descripcio: '',
     });
     const descripcioAplicacioSeleccionada = computed(() =>
       props.llistaAplicacions.find(aplicacio => aplicacio.nomAplicacio === state.nomAplicacio)?.descripcio || ''
     );
+    const descripcioModulSeleccionat = computed(() =>
+      props.llistaModuls.find(modul => modul.nomModul === state.nomModul)?.descripcio || ''
+    );
 
     onMounted( async () => {
       document.addEventListener("keydown", handler);
 
-      if (props.isEdit && props.nomAplicacio && props.nomModul) {
-        const resp = await carrega(modulsService.obtenirModul(props.nomAplicacio, props.nomModul));
+      if (props.isEdit && props.nomAplicacio && props.nomModul && props.nomPermis) {
+        const resp = await carrega(permisosService.obtenirPermis(props.nomAplicacio, props.nomModul, props.nomPermis));
         state.nomAplicacio = resp.nomAplicacio;
         state.nomModul = resp.nomModul;
+        state.nomPermis = resp.nomPermis;
         state.descripcio = resp.descripcio;
       } 
     });
@@ -95,12 +124,29 @@ export default {
       document.removeEventListener("keydown", handler);
     });
 
+    watch(() => state.nomAplicacio, () => {
+      filtrarModulsByAplicacio();
+    });
+
+    watch(() => state.nomModul, () => {
+      if (!props.isEdit && !state.nomAplicacio && state.nomModul) {
+        const modulSeleccionat = props.llistaModuls.find(modul => modul.nomModul === state.nomModul);
+        state.nomAplicacio = modulSeleccionat ? modulSeleccionat.nomAplicacio : '';
+      }
+    });
+
     const rules = {
       nomAplicacio: { required },
       nomModul: { required },
+      nomPermis: { required },
       descripcio: { required },
     };
     const v = useVuelidate(rules, state);
+
+    const filtrarModulsByAplicacio = () => {
+      const data = props.llistaModuls.filter(modul => modul.nomAplicacio === state.nomAplicacio);
+      modulsFiltrats.value = data;
+    }
 
     const guardar = async () => {
       v.value.$reset();
@@ -109,12 +155,13 @@ export default {
         let request = {
           nomAplicacio: state.nomAplicacio,
           nomModul: state.nomModul,
-          descripcio: state.descripcio
+          nomPermis: state.nomPermis,
+          descripcio: state.descripcio,
         }
         if (props.isEdit) {
-          await carrega(modulsService.modificarModul(props.nomAplicacio, props.nomModul, request));
+          await carrega(permisosService.modificarPermis(request));
         } else {
-          await carrega(modulsService.crearModul(request));
+          await carrega(permisosService.crearPermis(request));
         }
 
         toast.add({severity:'success', summary: t('Moduls.modul guardat correctament'), life: 3000});
@@ -137,7 +184,10 @@ export default {
       visible,
       props,
       state,
+      modulsFiltrats,
       descripcioAplicacioSeleccionada,
+      descripcioModulSeleccionat,
+      filtrarModulsByAplicacio,
       v,
       guardar,
       hide,

@@ -1,15 +1,8 @@
 <template>
-  <ModalFuncionsEmpleat v-if="visibleFuncionsEmpleat" :carregat="visibleFuncionsEmpleat"
-    @update:carregat="visibleFuncionsEmpleat = $event" :idEmpleat="idEmpleat" />
-  <ModalAfegirEmpleatDelModul v-if="visibleAfegirEmpleatDelModul" :carregat="visibleAfegirEmpleatDelModul"
-    @update:carregat="visibleAfegirEmpleatDelModul = $event" :nomAplicacio="props.nomAplicacio"
-    :nomModul="props.nomModul" @actualitzar="carregaEmpleatsDelModul()"/>
   <Dialog v-model:visible="visible" modal @hide="hide" :closable="true" :closeOnEscape="false" :draggable="true" :contentStyle="{ overflowY: 'hidden' }">
     <template #header>
       <div style="width: 100%;">
-        <span style="font-size: larger; font-weight: 600; float: left;">{{ `${$t('Moduls.empleat modul')} ${props.nomAplicacio} - ${props.nomModul}` }}</span>
-        <ButtonShortcut :literal="$t('Moduls.Afegir empleat del Modul')" @click="visibleAfegirEmpleatDelModul = true"
-          icon="fa-solid fa-plus" style="margin-left: 25px;"/>
+        <span style="font-size: larger; font-weight: 600; float: left;">{{ `${$t('Permisos.empleat permis')} ${props.nomAplicacio} - ${props.nomModul} - ${props.nomPermis}` }}</span>
       </div>
     </template>
     <ContextMenu ref="contextMenu" :model="menuModel" style="width: auto;" />
@@ -24,14 +17,6 @@
           <InfoTaulaBuida :icon="'fa-solid fa-info'" :literal="$t('Empleats.Cap empleats')" />
         </div>
       </template>
-      <Column :style="{ width: '35px' }" style="max-width: 35px;" :reorderableColumn="false">
-        <template #body="{ data }">
-          <div style="width: 100%;">
-            <Button icon="pi pi-ellipsis-h" class="p-button-rounded ocultable"
-              @click="registreSeleccionat = data; contextMenu.show($event)" />
-          </div>
-        </template>
-      </Column>
       <Column :header="$t('App.Nom')" :style="{ width: '350px' }" style="max-width: 350px;" field="nom">
         <template #body="{ data }">
           {{ data.nom }}
@@ -42,9 +27,16 @@
           {{ data.cognoms }}
         </template>
       </Column>
-      <Column :header="$t('App.Email')" :style="{ width: '250px' }"  field="email">
+      <Column :header="$t('App.Email')" :style="{ width: '350px' }"  field="email">
         <template #body="{ data }">
           {{ data.email }}
+        </template>
+      </Column>
+      <Column :header="$t('App.Tipus assignacio')" :style="{ width: '160px' }" style="max-width: 160px; align-items: center;" field="tipusAssignacio">
+        <template #body="{ data }">
+          <div style="width: 100%; text-align: center;">
+            <Tag :value="$t(`App.${data.tipusAssignacio}`)" :severity="getSeverityFlag(data.tipusAssignacio)" />
+          </div>
         </template>
       </Column>
     </DataTable>
@@ -52,20 +44,14 @@
 </template>
 
 <script>
-import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import modulsService from '@/services/moduls.service';
+import { onMounted, onUnmounted, ref } from 'vue';
+import permisosService from '@/services/permisos.service';
 import { getLocalizedJson } from "@/services/index";
-import { useConfirm } from 'primevue/useconfirm';
 import { isContextMenuKey } from '@/utils/contextmenuUtils.js';
-import ModalFuncionsEmpleat from '../ModalFuncionsEmpleat.vue';
-import ModalAfegirEmpleatDelModul from './ModalAfegirEmpleatDelModul.vue';
 
 export default {
-  name: 'ModalEmpleatsDelModul',
+  name: 'ModalTotsElsEmpleatsDelPermis',
   components: {
-    ModalFuncionsEmpleat,
-    ModalAfegirEmpleatDelModul,
   },
   props: {
     nomAplicacio: {
@@ -76,17 +62,17 @@ export default {
       type: String,
       default: null
     },
+    nomPermis: {
+      type: String,
+      default: null
+    },
   },
   setup(props, { emit }) {
-    const { t } = useI18n();
-    const confirm = useConfirm();
     const visible = ref(true);
     const empleats = ref([]);
     const contextMenu = ref();
     const registreSeleccionat = ref();
     const selectedIndex = ref(-1);
-    const visibleFuncionsEmpleat = ref(false);
-    const visibleAfegirEmpleatDelModul = ref(false);
     const idEmpleat = ref(null);
 
     const sortField = ref(null);
@@ -97,25 +83,24 @@ export default {
       sortOrder.value = event.sortOrder;
     };
 
+    const getSeverityFlag = (flag) => {
+      if (flag === 'FUNCIO') return 'success';
+      if (flag === 'INDIVIDUAL') return 'info';
+      if (flag === 'DOSTIPUS') return 'warning';
+    }
+
     onMounted(async () => {
       document.addEventListener("keydown", handler);
-      await carregaEmpleatsDelModul();
+      await carregaEmpleats();
     });
 
     onUnmounted(() => {
       document.removeEventListener("keydown", handler);
     });
 
-    const modalVisible = computed(() => {
-      return visibleFuncionsEmpleat.value
-      || visibleAfegirEmpleatDelModul.value;
-    });
-
     const handler = (ev) => {
       // No processem l'event en cas que es produeixi des d'un ContextMenu
       if (isContextMenuKey(ev))  return;
-      if (modalVisible.value) return;
-      if (document.querySelector('.p-confirm-dialog')) return;
       if (ev.key=='Escape') {
         actionHandler(ev, hide);
       } 
@@ -131,52 +116,34 @@ export default {
       emit("update:carregat", false);
     };
 
-    const carregaEmpleatsDelModul = async () => {
-      const data = await modulsService.obtenirEmpleatsByModul(props.nomAplicacio, props.nomModul);
-      empleats.value = data;
-    }
+    const carregaEmpleats = async () => {
+      const data = await permisosService.obtenirTotsElsEmpleatsByPermis(props.nomAplicacio, props.nomModul, props.nomPermis);
+      const empleatsMap = new Map();
 
-    const funcionsEmpleat = async (empleat) => {
-      idEmpleat.value = empleat;
-      visibleFuncionsEmpleat.value = true;
-    };
-
-    const eliminarEmpleat = async (nomAplicacio, nomModul) => {
-
-      confirm.require({
-        header: t('Empleats.Eliminar Empleat'),
-        acceptClass: 'p-button-danger',
-        message: t('Moduls.Confirmacio eliminar empleat del modul'),
-        icon: 'pi pi-exclamation-triangle',
-        accept: async () => {
-          await modulsService.eliminarEmpleatDelModul(nomAplicacio, nomModul, registreSeleccionat.value.id);
-          carregaEmpleatsDelModul();
+      data.forEach(empleat => {
+        if (empleatsMap.has(empleat.id)) {
+          empleatsMap.get(empleat.id).tipusAssignacio = 'DOSTIPUS';
+        } else {
+          empleatsMap.set(empleat.id, { ...empleat });
         }
       });
-    };
 
-    const menuModel = computed(() => {
-        let result = [];
-        result.push({ label: () => `${t('Empleats.funcions empleat')}`, class: 'p-button-text', icon: 'pi pi-user', command: () => funcionsEmpleat(registreSeleccionat.value.id) });
-        result.push({ label: () => `${t('Empleats.eliminar empleat')}`, class: 'p-button-text', icon: 'pi pi-trash', command: () => eliminarEmpleat(props.nomAplicacio, props.nomModul) });
-      return result;
-    });
-    
+      empleats.value = Array.from(empleatsMap.values());
+    }
+
     return {
       visible,
-      visibleFuncionsEmpleat,
-      visibleAfegirEmpleatDelModul,
       props,
       onSort,
       empleats,
       registreSeleccionat,
       selectedIndex,
       contextMenu,
-      menuModel,
-      carregaEmpleatsDelModul,
+      carregaEmpleats,
       getLocalizedJson,
       hide,
       idEmpleat,
+      getSeverityFlag,
     }
 
   }

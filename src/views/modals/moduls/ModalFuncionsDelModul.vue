@@ -122,6 +122,7 @@ export default {
       // No processem l'event en cas que es produeixi des d'un ContextMenu
       if (isContextMenuKey(ev))  return;
       if (modalVisible.value) return;
+      if (document.querySelector('.p-confirm-dialog')) return;
       if (ev.key=='Escape') {
         actionHandler(ev, hide);
       } 
@@ -153,7 +154,7 @@ export default {
     const eliminarFuncio = async (nomAplicacio, nomModul) => {
 
       confirm.require({
-        header: t('Moduls.Eliminar Modul'),
+        header: t('Funcions.Eliminar Funcio'),
         acceptClass: 'p-button-danger',
         message: t('Moduls.Confirmacio eliminar funcio del modul'),
         icon: 'pi pi-exclamation-triangle',

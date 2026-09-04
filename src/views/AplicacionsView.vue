@@ -48,7 +48,7 @@
 import { onMounted, ref, reactive, computed } from 'vue';
 import aplicacionsService from '@/services/aplicacions.service';
 import { useI18n } from 'vue-i18n';
-import ModalCrearEditarAplicacio from '@/views/modals/ModalCrearEditarAplicacio.vue';
+import ModalCrearEditarAplicacio from '@/views/modals/aplicacions/ModalCrearEditarAplicacio.vue';
 import { useConfirm } from 'primevue/useconfirm';
 
 export default {

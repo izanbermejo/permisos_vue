@@ -25,6 +25,11 @@ const routes = [
     path: '/moduls',
     component: lazyView('ModulsView')
   },
+  {
+    name: 'permisos',
+    path: '/permisos',
+    component: lazyView('PermisosView')
+  },
 ]
 
 const router = createRouter({
