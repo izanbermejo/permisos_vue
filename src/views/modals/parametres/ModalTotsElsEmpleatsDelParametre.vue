@@ -86,7 +86,7 @@ export default {
 
     const getSeverityFlag = (flag) => {
       if (flag === 'FUNCIO') return 'success';
-      if (flag === 'INDIVIDUAL') return 'info';
+      if (flag === 'EMPLEAT') return 'info';
       if (flag === 'DOSTIPUS') return 'warning';
     }
 
@@ -123,7 +123,7 @@ export default {
 
       data.forEach(empleat => {
         if (empleatsMap.has(empleat.id)) {
-          if (empleat.tipusAssignacio === 'INDIVIDUAL') {
+          if (empleat.tipusAssignacio === 'EMPLEAT') {
             empleatsMap.set(empleat.id, { ...empleat });
           }
         } else {
