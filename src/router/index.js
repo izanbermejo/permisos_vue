@@ -30,6 +30,11 @@ const routes = [
     path: '/permisos',
     component: lazyView('PermisosView')
   },
+  {
+    name: 'parametres',
+    path: '/parametres',
+    component: lazyView('ParametresView')
+  },
 ]
 
 const router = createRouter({
