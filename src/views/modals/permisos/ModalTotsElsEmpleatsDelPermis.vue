@@ -1,4 +1,6 @@
 <template>
+  <ModalFuncionsEmpleat v-if="visibleFuncionsEmpleat" :carregat="visibleFuncionsEmpleat"
+    @update:carregat="visibleFuncionsEmpleat = $event" :idEmpleat="idEmpleat" />
   <Dialog v-model:visible="visible" modal @hide="hide" :closable="true" :closeOnEscape="false" :draggable="true" :contentStyle="{ overflowY: 'hidden' }">
     <template #header>
       <div style="width: 100%;">
@@ -17,6 +19,14 @@
           <InfoTaulaBuida :icon="'fa-solid fa-info'" :literal="$t('Empleats.Cap empleats')" />
         </div>
       </template>
+      <Column :style="{ width: '35px' }" style="max-width: 35px;" :reorderableColumn="false">
+        <template #body="{ data }">
+          <div style="width: 100%;">
+            <Button icon="pi pi-ellipsis-h" class="p-button-rounded ocultable"
+              @click="registreSeleccionat = data; contextMenu.show($event)" />
+          </div>
+        </template>
+      </Column>
       <Column :header="$t('App.Nom')" :style="{ width: '350px' }" style="max-width: 350px;" field="nom">
         <template #body="{ data }">
           {{ data.nom }}
@@ -44,14 +54,18 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import permisosService from '@/services/permisos.service';
 import { getLocalizedJson } from "@/services/index";
 import { isContextMenuKey } from '@/utils/contextmenuUtils.js';
+import ModalFuncionsEmpleat from '../ModalFuncionsEmpleat.vue';
+import { useI18n } from 'vue-i18n';
+import { useConfirm } from 'primevue/useconfirm';
 
 export default {
   name: 'ModalTotsElsEmpleatsDelPermis',
   components: {
+    ModalFuncionsEmpleat,
   },
   props: {
     nomAplicacio: {
@@ -68,11 +82,14 @@ export default {
     },
   },
   setup(props, { emit }) {
+    const { t } = useI18n();
+    const confirm = useConfirm();
     const visible = ref(true);
     const empleats = ref([]);
     const contextMenu = ref();
     const registreSeleccionat = ref();
     const selectedIndex = ref(-1);
+    const visibleFuncionsEmpleat = ref(false);
     const idEmpleat = ref(null);
 
     const sortField = ref(null);
@@ -98,9 +115,14 @@ export default {
       document.removeEventListener("keydown", handler);
     });
 
+    const modalVisible = computed(() => {
+      return visibleFuncionsEmpleat.value;
+    });
+
     const handler = (ev) => {
       // No processem l'event en cas que es produeixi des d'un ContextMenu
       if (isContextMenuKey(ev))  return;
+      if (modalVisible.value) return;
       if (ev.key=='Escape') {
         actionHandler(ev, hide);
       } 
@@ -131,6 +153,32 @@ export default {
       empleats.value = Array.from(empleatsMap.values());
     }
 
+    const funcionsEmpleat = async (empleat) => {
+      idEmpleat.value = empleat;
+      visibleFuncionsEmpleat.value = true;
+    };
+
+    const eliminarEmpleat = async (nomAplicacio, nomModul, nomPermis) => {
+
+      confirm.require({
+        header: t('Empleats.Eliminar Empleat'),
+        acceptClass: 'p-button-danger',
+        message: t('Moduls.Confirmacio eliminar empleat del modul'),
+        icon: 'pi pi-exclamation-triangle',
+        accept: async () => {
+          await permisosService.eliminarEmpleatDelPermis(nomAplicacio, nomModul, nomPermis, registreSeleccionat.value.id);
+          carregaEmpleats();
+        }
+      });
+    };
+
+    const menuModel = computed(() => {
+        let result = [];
+        result.push({ label: () => `${t('Empleats.funcions empleat')}`, class: 'p-button-text', icon: 'pi pi-user', command: () => funcionsEmpleat(registreSeleccionat.value.id) });
+        result.push({ label: () => `${t('Empleats.eliminar empleat')}`, hide: true, class: 'p-button-text', icon: 'pi pi-trash', command: () => eliminarEmpleat(props.nomAplicacio, props.nomModul, props.nomPermis), visible: () => registreSeleccionat.value.tipusAssignacio !== 'FUNCIO',});
+      return result;
+    });
+
     return {
       visible,
       props,
@@ -144,6 +192,8 @@ export default {
       hide,
       idEmpleat,
       getSeverityFlag,
+      menuModel,
+      visibleFuncionsEmpleat,
     }
 
   }
