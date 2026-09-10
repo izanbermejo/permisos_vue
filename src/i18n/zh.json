@@ -202,5 +202,9 @@
   "Parametres.parametre assignada correctament": "参数分配正确。",
   "Parametres.tots parametre": "所有带参数的",
   "Parametres.Confirmacio eliminar modul amb funcions i empleats": "此参数包含分配的功能或员工。您想要删除该参数及其分配吗？",
-  "Parametres.parametre guardat correctament": "参数已成功保存"
+  "Parametres.parametre guardat correctament": "参数已成功保存",
+  "App.Empleats": "员工",
+  "App.Permis": "许可",
+  "Empleats.Cap permis": "未找到员工的权限。",
+  "Empleats.Cap parametre": "未找到员工的任何参数。"
 }

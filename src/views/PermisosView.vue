@@ -51,7 +51,7 @@
             {{ data.nomAplicacio }}
           </template>
         </Column>
-        <Column :header="$t('Moduls.Nom modul')" :style="{ width: '350px' }" style="max-width: 300px;" field="nomModul" sortable>
+        <Column :header="$t('App.Modul')" :style="{ width: '350px' }" style="max-width: 300px;" field="nomModul" sortable>
           <template #body="{ data }">
             {{ data.nomModul }}
           </template>

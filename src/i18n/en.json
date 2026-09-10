@@ -208,5 +208,9 @@
   "Parametres.parametre assignada correctament": "Parameter assigned correctly.",
   "Parametres.tots parametre": "Everyone with parameter",
   "Parametres.Confirmacio eliminar modul amb funcions i empleats": "This parameter contains assigned functions or employees. Do you want to delete the parameter and its assignments?",
-  "Parametres.parametre guardat correctament": "Parameter saved successfully"
+  "Parametres.parametre guardat correctament": "Parameter saved successfully",
+  "App.Empleats": "Employees",
+  "App.Permis": "Permission",
+  "Empleats.Cap permis": "No permission found for the employee.",
+  "Empleats.Cap parametre": "No parameter found for the employee."
 }

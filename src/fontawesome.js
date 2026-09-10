@@ -87,6 +87,7 @@ import {
   faLayerGroup,
   faUserLock,
   faList,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -177,4 +178,5 @@ library.add(
   faLayerGroup,
   faUserLock,
   faList,
+  faUsers,
 )

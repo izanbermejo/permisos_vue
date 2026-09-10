@@ -208,5 +208,9 @@
   "Parametres.parametre assignada correctament": "Parámetro asignado correctamente.",
   "Parametres.tots parametre": "Todos con parámetro",
   "Parametres.Confirmacio eliminar modul amb funcions i empleats": "Este parámetro contiene funciones o empleados asignados. ¿Quieres eliminar el parámetro y sus asignaciones?",
-  "Parametres.parametre guardat correctament": "Parámetro guardado correctamente"
+  "Parametres.parametre guardat correctament": "Parámetro guardado correctamente",
+  "App.Empleats": "Empleados",
+  "App.Permis": "Permiso",
+  "Empleats.Cap permis": "Ningún permiso encontrado para el empleado.",
+  "Empleats.Cap parametre": "Ningún parámetro encontrado para el empleado."
 }

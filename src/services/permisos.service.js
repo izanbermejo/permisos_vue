@@ -1,11 +1,13 @@
-import { apiOrganigrama, apiPermisos } from "@/services/index.js";
+import { apiPermisos } from "@/services/index.js";
 
 class PermisosService {
 
   static APLICACIO = 'COMERCIAL';
 
-  obtenirPermisos(idEmpleat) {
-    return apiOrganigrama.get(`permisos/empleat/${idEmpleat}/aplicacio/${PermisosService.APLICACIO}/permisos`);
+  async obtenirPermisos(idEmpleat) {
+    const response = await apiPermisos.get(`organigrama/permisos/empleat/${idEmpleat}/aplicacio/${PermisosService.APLICACIO}/permisos`);
+    console.log('PermisosService.obtenirPermisos', response);
+    return response;
   }
 
 

@@ -35,6 +35,11 @@ const routes = [
     path: '/parametres',
     component: lazyView('ParametresView')
   },
+  {
+    name: 'empleats',
+    path: '/empleats',
+    component: lazyView('EmpleatsView')
+  },
 ]
 
 const router = createRouter({

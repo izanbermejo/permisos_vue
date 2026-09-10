@@ -26,7 +26,7 @@
     </div>
     <div style="display:flex; white-space: nowrap; margin-left: 15px; margin-bottom: 20px;">
       <font-awesome-icon icon="fa-solid fa-copyright" style="font-size: 1.5rem; color: white;" />
-      <span v-if="!collapsed" class="copyright" style="margin-left: 10px">IT AMES GROUP 2024</span>
+      <span v-if="!collapsed" class="copyright" style="margin-left: 10px">IT AMES GROUP 2026</span>
     </div>
   </template>
   </sidebar-menu>
@@ -161,6 +161,11 @@ export default {
             href: '/parametres',
             title: t('App.Parametres'),
             icon: faIcon({ icon: 'fa-solid fa-list' })
+          },
+          {
+            href: '/empleats',
+            title: t('App.Empleats'),
+            icon: faIcon({ icon: 'fa-solid fa-users' })
           },
         ]}
 

@@ -202,5 +202,9 @@
   "Parametres.parametre assignada correctament": "A paraméter sikeresen hozzárendelve.",
   "Parametres.tots parametre": "Minden paraméterrel",
   "Parametres.Confirmacio eliminar modul amb funcions i empleats": "Ez a paraméter funkciókat vagy kijelölt alkalmazottakat tartalmaz. El akarod távolítani a paramétert és annak hozzárendeléseit?",
-  "Parametres.parametre guardat correctament": "A paraméter sikeresen mentve"
+  "Parametres.parametre guardat correctament": "A paraméter sikeresen mentve",
+  "App.Empleats": "Alkalmazottak",
+  "App.Permis": "Engedély",
+  "Empleats.Cap permis": "Nincs engedély az alkalmazott számára.",
+  "Empleats.Cap parametre": "Nincs paraméter az alkalmazotthoz."
 }
